@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -10,7 +10,7 @@ RUN apt-get update --fix-missing
 
 # Install Verilator 5+ (4 is not sufficient)
 
-RUN apt-get -y install git help2man perl python3.10 python3.10-dev make autoconf g++ flex bison ccache
+RUN apt-get -y install git help2man perl python3 python3-dev make autoconf g++ flex bison ccache
 
 RUN apt-get -y install libgoogle-perftools-dev numactl perl-doc
 
@@ -45,6 +45,7 @@ RUN cd iverilog && git fetch && git checkout v12_0
 RUN cd iverilog && sh autoconf.sh && ./configure && make && make install
 
 # Install zachjs-sv2v
+RUN apt-get install -y wget unzip
 
 RUN wget https://github.com/zachjs/sv2v/releases/download/v0.0.13/sv2v-Linux.zip
 
@@ -79,22 +80,19 @@ RUN ls /usr/local/share/icebox/
 RUN cd nextpnr/build && make && make install
 
 # Install cocotb
+RUN apt-get install -y python3 python3-pip
 
-RUN apt-get -y install python3.10
+# RUN pip3 install --upgrade pip
 
-RUN wget https://bootstrap.pypa.io/get-pip.py
+RUN pip3 install --no-cache-dir 'cocotb==1.9.1'
 
-RUN python3 get-pip.py
-
-RUN pip3 install 'cocotb == 1.9.1'
-
-RUN pip3 install cocotb-test cocotb-bus cocotbext-axi gitpython
+RUN pip3 install --no-cache-dir cocotb-test cocotb-bus cocotbext-axi gitpython
 
 # Install pytest
+RUN pip3 install --no-cache-dir pytest pytest-timeout
 
-RUN pip3 install pytest pytest-timeout
-
-RUN pip3 install jsonmerge
+# RUN pip3 install jsonmerge
+RUN pip3 install --no-cache-dir jsonmerge
 
 # Cleanup!
 
