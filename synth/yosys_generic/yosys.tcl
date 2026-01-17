@@ -8,4 +8,4 @@ prep
 opt -full
 stat
 
-write_verilog -noexpr -noattr -simple-lhs synth/yosys_generic/build/synth.v
+write_verilog -noexpr -noattr synth/yosys_generic/build/synth.v
