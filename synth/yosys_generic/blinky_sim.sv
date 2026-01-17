@@ -7,6 +7,10 @@ module blinky_sim (
 
 blinky #(
     .CyclesPerToggle(100)
-) blinky (.*);
+) blinky (
+    .clk_i(clk_i),
+    .rst_ni(rst_ni),
+    .led_o(led_o)
+);
 
 endmodule

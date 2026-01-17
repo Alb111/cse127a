@@ -2,7 +2,7 @@
 TOP := blinky_tb
 
 export BASEJUMP_STL_DIR := $(abspath third_party/basejump_stl)
-export YOSYS_DATDIR := $(shell yosys-config --datdir)
+export YOSYS_DATDIR := /usr/share/yosys
 
 RTL := $(shell \
  BASEJUMP_STL_DIR=$(BASEJUMP_STL_DIR) \
@@ -49,7 +49,6 @@ synth/icestorm_icebreaker/build/icebreaker.asc: synth/icestorm_icebreaker/build/
 	 --json synth/icestorm_icebreaker/build/synth.json \
 	 --up5k \
 	 --package sg48 \
-	 --sdc synth/icestorm_icebreaker/nextpnr.sdc \
 	 --pcf synth/icestorm_icebreaker/nextpnr.pcf \
 	 --asc $@ \
 	 --report synth/icestorm_icebreaker/build/nextpnr.json
@@ -58,7 +57,8 @@ synth/icestorm_icebreaker/build/icebreaker.asc: synth/icestorm_icebreaker/build/
 	icepack $< $@
 
 icestorm_icebreaker_program: synth/icestorm_icebreaker/build/icebreaker.bit
-	sudo $(shell which openFPGALoader) -b ice40_generic $<
+	# sudo $(shell which openFPGALoader) -b ice40_generic 
+	sudo iceprog $<
 
 icestorm_icebreaker_flash: synth/icestorm_icebreaker/build/icebreaker.bit
 	sudo $(shell which openFPGALoader) -f -b ice40_generic $<
