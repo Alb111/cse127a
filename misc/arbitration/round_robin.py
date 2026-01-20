@@ -1,4 +1,11 @@
 class RoundRobinArbiter:
+    """
+    Round-Robin Arbiter
+
+    Grants access to requesters in sequential order, cycling through all
+    requesters equally. Each requester gets one grant per cycle when active,
+    ensuring fair distribution regardless of request patterns.
+    """
     def __init__(self, num_requesters):
         self.num_requesters = num_requesters
         self.last_grant = -1  # No grant yet
