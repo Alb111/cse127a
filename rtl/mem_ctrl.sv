@@ -2,10 +2,10 @@ module mem_ctrl import config_pkg::*; #(
 ) (
     input  logic clk_i,
     input  logic rst_ni,
-    output logic led_o
+    output logic sram_o
 );
 
-assign led_o = 0;
+assign sram_o = 0;
 
 // interal states are retained during disable
 // must be high before 1st running cycle
