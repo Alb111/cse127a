@@ -4,6 +4,7 @@ module blinky_runner;
 logic clk_i;
 logic rst_ni;
 logic led_o;
+logic sram_o;
 
 localparam realtime ClockFrequency = 200;
 localparam realtime ClockPeriod = (1s / ClockFrequency);
@@ -19,6 +20,15 @@ end
 blinky #(
     .CyclesPerToggle(100)
 ) blinky (.*);
+
+
+mem_ctrl example
+(   
+    .clk_i(clk_i),
+    .rst_ni(rst_ni),
+    .sram_o(sram_o)
+);
+
 
 always @(posedge led_o) $info("Led on");
 always @(negedge led_o) $info("Led off");
